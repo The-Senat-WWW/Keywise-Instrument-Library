@@ -25,3 +25,15 @@ Each instrument needs a unique stable ID, instrument version, source URL, packag
 - Extract an archive before verifying its checksum.
 - Trust archive paths without validating them.
 - Silently substitute a different instrument when one is unavailable.
+
+
+## Run catalog checks locally
+
+From the repository root, run:
+
+```sh
+python scripts/validate_manifest.py
+python -m unittest discover -s tests -v
+```
+
+The validator checks required metadata, unique IDs, HTTP(S) source/package URLs, SHA-256 syntax, archive format, positive package size, and explicit confirmation that redistribution rights were verified. It does **not** independently download packages, calculate their hashes, or determine whether a license interpretation is legally correct; those remain release-review steps. GitHub Actions runs these checks on pushes and pull requests targeting `main`.
